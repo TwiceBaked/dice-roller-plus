@@ -20,7 +20,7 @@ jobs:
         with:
           submodules: true
           lfs: false
-      - name: Set up Node.js (if applicable)
+      - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '14'
@@ -28,9 +28,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build the website
-        run: npm run build
-        
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
