@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - test
+      - production
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
@@ -32,6 +33,20 @@ jobs:
           api_location: "" # Api source code path - optional
           output_location: "." # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
+      - name: Deploy to test/production environment
+        env:
+          WEBSITE_TYPE: ${{ secrets.WEBSITE_TYPE }}
+        run: |
+          echo "Deploying to the $WEBSITE_TYPE environment"
+          # Your deployment script here, e.g., using AWS, Netlify, etc.
+          if [ "$WEBSITE_TYPE" == "test" ]; then
+            echo "Deploying to test site..."
+            # Add test deployment commands
+          elif [ "$WEBSITE_TYPE" == "production" ]; then
+            echo "Deploying to production site..."
+            # Add production deployment commands
+          fi
+
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
